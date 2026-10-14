@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185"/>
+      <stop offset="50%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#e11d48"/>
+    </linearGradient>
+    <linearGradient id="innerGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#881337" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Squircle Background -->
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#bgGrad)"/>
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#innerGlow)"/>
+
+  <!-- Glowing Cycle Ring -->
+  <circle cx="256" cy="256" r="160" fill="none" stroke="#ffe4e6" stroke-width="20" stroke-linecap="round" stroke-dasharray="720 180" opacity="0.4" transform="rotate(-45 256 256)"/>
+
+  <!-- Lotus / Flora Petals in Center -->
+  <g filter="url(#dropShadow)">
+    <!-- Central Drop / Moon -->
+    <path d="M256 120 C256 120 340 230 340 300 C340 346 302 384 256 384 C210 384 172 346 172 300 C172 230 256 120 256 120 Z" fill="#ffffff" opacity="0.95"/>
+    <!-- Inner Radiant Drop -->
+    <path d="M256 180 C256 180 310 255 310 300 C310 330 286 354 256 354 C226 354 202 330 202 300 C202 255 256 180 256 180 Z" fill="#ffe4e6"/>
+    <!-- Subtle Crescent sparkle -->
+    <circle cx="280" cy="250" r="14" fill="#f43f5e" opacity="0.75"/>
+    <circle cx="295" cy="235" r="7" fill="#ffffff"/>
+  </g>
+</svg>
