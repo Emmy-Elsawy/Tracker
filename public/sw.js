@@ -1,16 +1,6 @@
-const CACHE_NAME = 'aura-cycle-v1';
-const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/favicon.svg',
-  '/app-icon.svg'
-];
+const CACHE_NAME = 'aura-cycle-v2';
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE))
-  );
   self.skipWaiting();
 });
 
@@ -34,27 +24,34 @@ self.addEventListener('fetch', (event) => {
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      // Return cached version or fetch from network
-      return (
-        cachedResponse ||
+      if (cachedResponse) {
+        // Stale-while-revalidate in background
         fetch(event.request)
-          .then((response) => {
-            if (!response || response.status !== 200) {
-              return response;
+          .then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+              caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
             }
-            const responseToCache = response.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
+          })
+          .catch(() => {});
+        return cachedResponse;
+      }
+
+      return fetch(event.request)
+        .then((response) => {
+          if (!response || response.status !== 200) {
             return response;
-          })
-          .catch(() => {
-            // If offline and requesting navigation, fallback to index
-            if (event.request.mode === 'navigate') {
-              return caches.match('/');
-            }
-          })
-      );
+          }
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+          return response;
+        })
+        .catch(() => {
+          if (event.request.mode === 'navigate') {
+            return caches.match('./') || caches.match('./index.html');
+          }
+        });
     })
   );
 });

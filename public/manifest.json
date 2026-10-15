@@ -2,27 +2,27 @@
   "name": "Aura Cycle — Private Period Tracker",
   "short_name": "Aura Cycle",
   "description": "100% Free, Private, Offline Period & Ovulation Tracker for iOS & Android",
-  "start_url": "/",
-  "id": "/",
+  "start_url": "./",
+  "id": "./",
   "display": "standalone",
   "background_color": "#fff1f2",
   "theme_color": "#f43f5e",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/app-icon.svg",
+      "src": "./app-icon.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/app-icon.svg",
+      "src": "./app-icon.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "maskable"
     },
     {
-      "src": "/favicon.svg",
+      "src": "./favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     }
